@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/104/core/trunk/core/db/mysql
+END
+query.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 58
+/svn/!svn/ver/104/core/trunk/core/db/mysql/query.class.php
+END
+exception.class.php
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/67/core/trunk/core/db/mysql/exception.class.php
+END
