@@ -1,28 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedDBMySQLQuery
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: DB/MySQL/Query
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
 /**
  *  MySQL result set (this object is instanced and returned for every query)
  *  @name    BreedDBMySQLQuery
  *  @type    class
- *  @package Konsolidate
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
 class BreedDBMySQLQuery extends CoreDBMySQLQuery
 {

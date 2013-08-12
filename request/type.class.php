@@ -1,5 +1,12 @@
 <?php
 
+/**
+ *  Unified access to request type buffers such as $_GET and $_POST
+ *  @name    BreedRequestType
+ *  @type    class
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
+ */
 class BreedRequestType extends Konsolidate implements ArrayAccess
 {
 	protected $_protect;

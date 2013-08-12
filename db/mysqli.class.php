@@ -1,28 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedDBMySQLi
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: DB/MySQLi
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
 /**
  *  MySQL Connectivity
  *  @name    BreedDBMySQLi
  *  @type    class
- *  @package Konsolidate
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
 class BreedDBMySQLi extends Konsolidate
 {
@@ -209,8 +192,7 @@ class BreedDBMySQLi extends Konsolidate
 			$oQuery->cached = false;
 
 			if ( $bUseCache && $this->_isCachableQuery( $sQuery ) )
-				$this->_cache[ $sCacheKey ] = $oQuery; 
-
+				$this->_cache[ $sCacheKey ] = $oQuery;
 			return $oQuery;
 		}
 		return false;
@@ -376,7 +358,7 @@ class BreedDBMySQLi extends Konsolidate
 
 
 	//  As MySQLi has a lot more to offer than MySQL, we provide extra methods
-	//  NOTE: be aware that by using these methods you will loose some flawless compatibility 
+	//  NOTE: be aware that by using these methods you will loose some flawless compatibility
 	//        with the normal MySQL engine.
 
 
@@ -416,7 +398,7 @@ class BreedDBMySQLi extends Konsolidate
 	 *  @access  public
 	 *  @returns string info
 	 *  @syntax  string BreedDBMySQLi->clientInfo()
-	 *  @note    the client info may appear to be the version as string, but can contain 
+	 *  @note    the client info may appear to be the version as string, but can contain
 	 *           additional build information, use clientVersion( true ) for fool-proof
 	 *           string version comparing
 	 */
@@ -451,7 +433,7 @@ class BreedDBMySQLi extends Konsolidate
 	 *  @access  public
 	 *  @returns string info
 	 *  @syntax  string BreedDBMySQLi->serverInfo()
-	 *  @note    the server info may appear to be the version as string, but can contain 
+	 *  @note    the server info may appear to be the version as string, but can contain
 	 *           additional build information, use serverVersion( true ) for fool-proof
 	 *           string version comparing
 	 */
@@ -509,5 +491,3 @@ class BreedDBMySQLi extends Konsolidate
 		return (bool) preg_match( "/^\s*SELECT /i", $sQuery );
 	}
 }
-
-?>

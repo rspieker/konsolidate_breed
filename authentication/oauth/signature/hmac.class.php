@@ -1,26 +1,11 @@
 <?php
 
 /*
- *            ________ ___
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /
- *    \  /   /\   \  /    \       Class:  BreedAuthenticationOAuthSignatureHMAC
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: /Authentication/OAuth/Signature/HMAC
- *       \___\/  \___\/  \/
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/
- *
- *  @name   BreedAuthenticationOAuthSignatureHMAC
- *  @type   class
- *  @date   2/27/11
- *  @author Rogier Spieker <rogier@konsolidate.net>
+ *  @name    BreedAuthenticationOAuthSignatureHMAC
+ *  @type    class
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
-
 class BreedAuthenticationOAuthSignatureHMAC extends Konsolidate
 {
 	public function identify( $sHashMethod="sha1" )

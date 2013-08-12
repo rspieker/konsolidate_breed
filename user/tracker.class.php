@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *  @name     BreedUserTracker
+ *  @type     class
+ *  @package  Breed
+ *  @author   Rogier Spieker <rogier@konfirm.net>
+ */
 class BreedUserTracker extends CoreUserTracker
 {
 	/**

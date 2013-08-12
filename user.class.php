@@ -1,5 +1,11 @@
 <?php
 
+/**
+ *  @name     BreedUser
+ *  @type     class
+ *  @package  Breed
+ *  @author   Rogier Spieker <rogier@konfirm.net>
+ */
 class BreedUser extends CoreUser
 {
 	/**

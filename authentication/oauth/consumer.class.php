@@ -1,26 +1,11 @@
 <?php
 
 /*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedAuthenticationOAuthConsumer
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: /Authentication/OAuth/Consumer
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- *
- *  @name   BreedAuthenticationOAuthConsumer
- *  @type   class
- *  @date   2/28/11
- *  @author Rogier Spieker <rogier@konsolidate.net>
+ *  @name    BreedAuthenticationOAuthConsumer
+ *  @type    class
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
-
 class BreedAuthenticationOAuthConsumer extends Konsolidate
 {
 	public $key;
@@ -37,4 +22,3 @@ class BreedAuthenticationOAuthConsumer extends Konsolidate
 		return $this->key;
 	}
 }
-

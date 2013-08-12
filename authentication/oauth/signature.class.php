@@ -1,26 +1,11 @@
 <?php
 
 /*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedAuthenticationOAuthSignature
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: /Authentication/OAuth/Signature
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- *
- *  @name   BreedAuthenticationOAuthSignature
- *  @type   class
- *  @date   2/27/11
- *  @author Rogier Spieker <rogier@konsolidate.net>
+ *  @name    BreedAuthenticationOAuthSignature
+ *  @type    class
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
-
 class BreedAuthenticationOAuthSignature extends Konsolidate
 {
 	public function __construct( $oParent )

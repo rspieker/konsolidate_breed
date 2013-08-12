@@ -1,28 +1,11 @@
 <?php
 
 /*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedEncryptionHMAC
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: /Encryption/HMAC
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- *
- *  @name   BreedEncryptionHMAC
- *  @type   class
- *  @date   2/27/11
- *  @author Rogier Spieker <rogier@konsolidate.net>
- */
-
-/*
- *  Encryption/HMAC is fully based on the PEAR package Crypt_HMAC by Derick Rethans and Matthew Fonda
+ *  @name     BreedEncryptionHMAC
+ *  @type     class
+ *  @package  Breed
+ *  @author   Rogier Spieker <rogier@konfirm.net>
+ *  @note     Encryption/HMAC is fully based on the PEAR package Crypt_HMAC by Derick Rethans and Matthew Fonda
  */
 class BreedEncryptionHMAC extends Konsolidate
 {

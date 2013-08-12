@@ -1,28 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedDBMongo
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: DB/Mongo
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
 /**
  *  Mongo Connectivity
  *  @name    BreedDBMongo
  *  @type    class
- *  @package Konsolidate
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
 class BreedDBMongo extends Konsolidate
 {
@@ -73,11 +56,11 @@ class BreedDBMongo extends Konsolidate
 			if ( !isset( $this->_URI[ "host" ] ) || $this->_URI[ "host" ] == "localhost" )
 				$this->_mongo = new Mongo();
 			else
-				$this->_mongo = new Mongo( 
-					sprintf( "mongodb://%s%s@%s%s", 
+				$this->_mongo = new Mongo(
+					sprintf( "mongodb://%s%s@%s%s",
 						isset( $this->_URI[ "user" ] ) ? $this->_URI[ "user" ] : "",
-						isset( $this->_URI[ "pass" ] ) ? ":{$this->_URI[ "pass" ]}" : "", 
-						isset( $this->_URI[ "host" ] ) ? $this->_URI[ "host" ] : "", 
+						isset( $this->_URI[ "pass" ] ) ? ":{$this->_URI[ "pass" ]}" : "",
+						isset( $this->_URI[ "host" ] ) ? $this->_URI[ "host" ] : "",
 						isset( $this->_URI[ "port" ] ) ? ":{$this->_URI[ "port" ]}" : ""
 					)
 				);

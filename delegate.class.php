@@ -1,24 +1,6 @@
 <?php
 
 /*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedDelegate
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: Delegate
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
-
-/*
  *  MySQL table
  *  CREATE TABLE `delegate` (
  *    `dlgid` int(11) unsigned NOT NULL auto_increment,
@@ -32,14 +14,14 @@
  */
 
 /**
- *  Delegation class, intended to be used for common actions of which the output remains solid 
+ *  Delegation class, intended to be used for common actions of which the output remains solid
  *  within a certain timeframe. It caches the serialized result in the database, so it is advised
  *  only to use the Delegate for calls whos duration is significantly longer than the Delegation
  *  needs to retrieve and process it (roughly 10-200 ms depending on your configuration)
- *  @name   BreedDelegate
- *  @type   class
+ *  @name    BreedDelegate
+ *  @type    class
  *  @package Breed
- *  @author Rogier Spieker <rogier@konsolidate.net>
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
 class BreedDelegate extends Konsolidate
 {
@@ -56,8 +38,8 @@ class BreedDelegate extends Konsolidate
 	 *  @name    _preferedlimit
 	 *  @type    int
 	 *  @access  protected
-	 *  @note    Can be set through the Config mechanism by setting the "/Config/Delegate/limit" 
-	 *           to the desired limit, defaults to 2. This is a prefered limit, in case no 
+	 *  @note    Can be set through the Config mechanism by setting the "/Config/Delegate/limit"
+	 *           to the desired limit, defaults to 2. This is a prefered limit, in case no
 	 *           prepared data is available the limit will be exceeded
 	 */
 	protected $_preferedlimit;
@@ -149,8 +131,8 @@ class BreedDelegate extends Konsolidate
 	protected function _postpone( $sCall )
 	{
 		//  create and execute the database query for postponing the result so the next visitor doesn't end up doing the same thing
-		$sQuery  = "UPDATE delegate 
-					   SET dlgmodifiedts=NOW() 
+		$sQuery  = "UPDATE delegate
+					   SET dlgmodifiedts=NOW()
 					 WHERE dlgcall=" . $this->call( "/DB/quote", $sCall );
 		$oResult = $this->call( "/DB/query", $sQuery );
 		if ( is_object( $oResult ) && $oResult->errno <= 0 )
@@ -180,7 +162,7 @@ class BreedDelegate extends Konsolidate
 					)
 					ON DUPLICATE KEY
 					UPDATE dlgcontent=VALUES(dlgcontent),
-					       dlgmodifiedts=NOW()";
+						   dlgmodifiedts=NOW()";
 		$oResult = $this->call( "/DB/query", $sQuery );
 		//  something went wrong in a horrible and unforeseen manner, we like to know about it...
 		if ( !is_object( $oResult ) || $oResult->errno > 0 )

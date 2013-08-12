@@ -1,28 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedValidate
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: Validate
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
 /**
  *  Basic validation
  *  @name    BreedValidate
  *  @type    class
- *  @package Konsolidate
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
 class BreedValidate extends CoreValidate
 {
@@ -54,4 +37,27 @@ class BreedValidate extends CoreValidate
 	{
 		return preg_match( "/^[_a-z0-9-]+([a-z0-9\.\+_-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}|.info)$/i", $mValue );
 	}
-}
+} );
+		 */
+		function isFilled( $mValue )
+		{
+			return ( !preg_match( "/^$/", $mValue ) );
+		}
+
+		/**
+		 *  does the value represent a possible e-mail address
+		 *  @name    isEmail
+		 *  @type    method
+		 *  @access  public
+		 *  @param   mixed value
+		 *  @returns bool
+		 *  @syntax  Object->isEmail( mixed value );
+		 *  @note    This method does NOT verify the actual existing of the e-mail address, it merely verifies that it complies to common e-mail addresses
+		 */
+		function isEmail( $mValue )
+		{
+			return preg_match( "/^[_a-z0-9-]+([a-z0-9\.\+_-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3}|.info)$/i", $mValue );
+		}
+	}
+
+?>

@@ -1,35 +1,18 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedResourceAlias
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: Resource/Alias
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
 /**
  *  Resource aliases
  *  Determine and resolve the true resource
- *  @name    BreedResourceAlias
- *  @type    class
- *  @package Konsolidate
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @name     BreedResourceAlias
+ *  @type     class
+ *  @package  Breed
+ *  @author   Rogier Spieker <rogier@konfirm.net>
  */
  class BreedResourceAlias extends Konsolidate
  {
- 	public function resolve( $sPath, $bRedirect=true )
- 	{
- 		$sQuery  = "SELECT rsc.rscpath AS path,
+	public function resolve( $sPath, $bRedirect=true )
+	{
+		$sQuery  = "SELECT rsc.rscpath AS path,
 						   alt.rscpath AS alias,
 						   IF ( ral.ralredirect IS NULL, 0, ral.ralredirect ) AS redirect
 					  FROM resource rsc
@@ -49,19 +32,19 @@
 			}
 		}
 		return $sPath;
- 	}
+	}
 
 	public function resolveMultiple( $aPath, $bRedirect=true )
 	{
- 		if ( !is_array( $aPath ) )
- 			$aPath = Array( $aPath );
+		if ( !is_array( $aPath ) )
+			$aPath = Array( $aPath );
 
-			$sReturn = $aPath[ 0 ];
+		$sReturn = $aPath[ 0 ];
 
-			for ( $i = 0; $i < count( $aPath ); ++$i )
-				$aPath[ $i ] = $this->call( "/DB/quote", $aPath[ $i ] );
+		for ( $i = 0; $i < count( $aPath ); ++$i )
+			$aPath[ $i ] = $this->call( "/DB/quote", $aPath[ $i ] );
 
- 		$sQuery  = "SELECT rsc.rscpath AS path,
+		$sQuery  = "SELECT rsc.rscpath AS path,
 						   alt.rscpath AS alias,
 						   IF ( ral.ralredirect IS NULL, 0, ral.ralredirect ) AS redirect
 					  FROM resource rsc

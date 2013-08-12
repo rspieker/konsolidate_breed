@@ -1,26 +1,11 @@
 <?php
 
 /*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedAuthenticationOAuthToken
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: /Authentication/OAuth/Token
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- *
- *  @name   BreedAuthenticationOAuthToken
- *  @type   class
- *  @date   2/28/11
- *  @author Rogier Spieker <rogier@konsolidate.net>
+ *  @name    BreedAuthenticationOAuthToken
+ *  @type    class
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
-
 class BreedAuthenticationOAuthToken extends Konsolidate
 {
 	public $key;

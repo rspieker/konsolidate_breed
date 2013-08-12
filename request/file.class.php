@@ -1,28 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedRequestFile
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: Request/File
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
 /**
  *  Provide easy access to uploaded files
- *  @name    BreedRequestFile
- *  @type    class
- *  @package Konsolidate
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @name     BreedRequestFile
+ *  @type     class
+ *  @package  Breed
+ *  @author   Rogier Spieker <rogier@konfirm.net>
  */
 class BreedRequestFile extends CoreRequestFile
 {

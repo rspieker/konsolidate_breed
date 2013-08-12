@@ -1,26 +1,11 @@
 <?php
 
 /*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedAuthenticationOAuthRequest
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: /Authentication/OAuth/Request
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- *
- *  @name   BreedAuthenticationOAuthRequest
- *  @type   class
- *  @date   2/27/11
- *  @author Rogier Spieker <rogier@konsolidate.net>
+ *  @name    BreedAuthenticationOAuthRequest
+ *  @type    class
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
-
 class BreedAuthenticationOAuthRequest extends Konsolidate
 {
 	const DEFAULT_HTTP_METHOD = "POST";

@@ -1,28 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedDBMySQL
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: Validate
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
 /**
  *  Resources
  *  @name    BreedDBMySQL
  *  @type    class
- *  @package Konsolidate
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
 class BreedDBMySQL extends CoreDBMySQL
 {
@@ -73,7 +56,7 @@ class BreedDBMySQL extends CoreDBMySQL
 					$this->_cache = array_slice($this->_cache, -100, 100, true);
 				$this->_cache[ $sCacheKey ] = $oQuery;
 			}
-			
+
 			return $oQuery;
 		}
 		return false;
@@ -88,7 +71,7 @@ class BreedDBMySQL extends CoreDBMySQL
 	 *  @param   bool     hash output (default true)
 	 *  @param   bool     strip escaped names (default false)
 	 *  @returns string   fingerprint
-	 *  @syntax  string BreedDBMySQLiQuery->fingerprint( string query [, bool hash [, bool stripnames ] ] )
+	 *  @syntax  string BreedDBMySQLQuery->fingerprint( string query [, bool hash [, bool stripnames ] ] )
 	 */
 	public function fingerprint( $sQuery, $bHash=true, $bStripNames=false )
 	{

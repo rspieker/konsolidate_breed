@@ -1,26 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedServiceTwitter
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: /Service/Twitter
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- *
- *  @name   BreedServiceTwitter
- *  @type   class
- *  @date   2/28/11
- *  @author Rogier Spieker <rogier@konsolidate.net>
+/**
+ *  @name     BreedServiceTwitter
+ *  @type     class
+ *  @package  Breed
+ *  @author   Rogier Spieker <rogier@konfirm.net>
  */
-
 class BreedServiceTwitter extends Konsolidate
 {
 	protected $_basepath = "https://api.twitter.com/oauth";
@@ -35,8 +20,8 @@ class BreedServiceTwitter extends Konsolidate
 		session_start();
 		$this->_consumer = $this->instance( "/Authentication/OAuth/Consumer" );
 		$this->_consumer->initialize(
-			"__YOUR_APP_KEY__",
-			"__YOUR_APP_SECRET__"
+			"s7cFnNqM7ifA5rnQXWgTBw",
+			"AoyW3YRn8B3wQ3YdwgfHZG2TbNjL9J60Wym4eQPQ"
 		);
 
 		$this->_token = $this->_getAccessTokenFromSession();
@@ -60,13 +45,13 @@ class BreedServiceTwitter extends Konsolidate
 				"key"=>$oToken->oauth_token,
 				"secret"=>$oToken->oauth_token_secret
 			);
-//var_dump( $this->call( "/Authentication/OAuth/Request/getResponseData", "{$this->_basepath}/access_token", null, $oConsumer, $oToken, "GET" ) );
-//exit;
+var_dump( $this->call( "/Authentication/OAuth/Request/getResponseData", "{$this->_basepath}/access_token", null, $oConsumer, $oToken, "GET" ) );
+exit;
 			$oAccess = $this->_processResponse( $this->call( "/Authentication/OAuth/Request/getResponseData", "{$this->_basepath}/access_token", null, $oConsumer, $oToken, "GET" ) );
 			if ( $oAccess )
 			{
-//var_dump( $oAccess );
-//exit;
+var_dump( $oAccess );
+exit;
 				$this->_token = (object) Array(
 					"key"=>$oAccess->oauth_token,
 					"secret"=>$oAccess->oauth_token_secret

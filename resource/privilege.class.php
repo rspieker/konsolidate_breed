@@ -1,28 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedResourcePrivilege
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: Resource/Privilege
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
 /**
  *  Resources
- *  @name    BreedResourcePrivilege
- *  @type    class
- *  @package Konsolidate
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @name     BreedResourcePrivilege
+ *  @type     class
+ *  @package  Breed
+ *  @author   Rogier Spieker <rogier@konfirm.net>
  */
 class BreedResourcePrivilege extends Konsolidate
 {
@@ -215,16 +198,16 @@ class BreedResourcePrivilege extends Konsolidate
 			//  The resultset can be limited to 1 because as per UNIX standards, always the most explicit privilege set is leading
 			//  meaning we can trust the ordering by type ( user, group, other ) to determine the correct privilege
 			$sQuery  = "SELECT IF( rpv.usrid IS NOT NULL, 0, IF( ugp.usrid IS NOT NULL, 1, 2 ) ) AS `type`,
-						       MAX( IF( rpv.rpvprivilege & 4, 1, 0 ) ) AS `" . self::PRIVILEGE_READ ."`,
-						       MAX( IF( rpv.rpvprivilege & 2, 1, 0 ) ) AS `" . self::PRIVILEGE_WRITE . "`,
-						       MAX( IF( rpv.rpvprivilege & 1, 1, 0 ) ) AS `" . self::PRIVILEGE_ACCESS . "`
+							   MAX( IF( rpv.rpvprivilege & 4, 1, 0 ) ) AS `" . self::PRIVILEGE_READ ."`,
+							   MAX( IF( rpv.rpvprivilege & 2, 1, 0 ) ) AS `" . self::PRIVILEGE_WRITE . "`,
+							   MAX( IF( rpv.rpvprivilege & 1, 1, 0 ) ) AS `" . self::PRIVILEGE_ACCESS . "`
 						  FROM resourceprivilege rpv
 						 INNER JOIN resource rsc ON rsc.rscid=rpv.rscid AND rsc.rscpath=". $this->call( "/DB/quote", $sResource ) . "
 						  LEFT OUTER JOIN usergroup ugp ON ugp.gnmid=rpv.gnmid
 						 WHERE ( rpv.usrid IS NULL AND rpv.gnmid IS NULL )
-						    OR ugp.usrid='" . $this->get( "/User/id" ) . "'
-						    OR rpv.usrid='" . $this->get( "/User/id" ) . "'
-						    GROUP BY type, rsc.rscpath
+							OR ugp.usrid='" . $this->get( "/User/id" ) . "'
+							OR rpv.usrid='" . $this->get( "/User/id" ) . "'
+							GROUP BY type, rsc.rscpath
 						 ORDER BY type
 						 LIMIT 1";
 			$oResult = $this->call( "/DB/query", $sQuery );

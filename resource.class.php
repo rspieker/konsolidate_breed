@@ -1,28 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedResource
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: Resource
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
 /**
  *  Resources
- *  @name    BreedResource
- *  @type    class
- *  @package Kontribute
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @name     BreedResource
+ *  @type     class
+ *  @package  Breed
+ *  @author   Rogier Spieker <rogier@konfirm.net>
  */
 class BreedResource extends Konsolidate
 {
@@ -42,7 +25,7 @@ class BreedResource extends Konsolidate
 			$sPath = $this->path;
 
 		$sQuery  = "SELECT rscid,
-					       rscenabled
+						   rscenabled
 					  FROM resource
 					 WHERE rscpath=" . $this->call( "/DB/quote", $sPath );
 		$oResult = $this->call( "/DB/query", $sQuery );
@@ -73,7 +56,7 @@ class BreedResource extends Konsolidate
 	public function getPathByID( $nID )
 	{
 		$sQuery  = "SELECT rscpath,
-					       rscenabled
+						   rscenabled
 					  FROM resource
 					 WHERE rscid=" . $this->call( "/DB/quote", $nID );
 		$oResult = $this->call( "/DB/query", $sQuery );
@@ -105,7 +88,7 @@ class BreedResource extends Konsolidate
 			$sPath = $this->path;
 
 		$sQuery  = "INSERT INTO resource
-					       ( rscpath, rsccreatedts )
+						   ( rscpath, rsccreatedts )
 					VALUES ( " . $this->call( "/DB/quote", $sPath ) . ", NOW() )";
 		if ( !$bUnique )
 			$sQuery .= " ON DUPLICATE KEY UPDATE rscmodifiedts=NOW()";
@@ -135,4 +118,18 @@ class BreedResource extends Konsolidate
 		$sInput = preg_replace( "/[^a-zA-Z0-9_-]+/", "_", html_entity_decode( $sInput ) );
 		return $bLowerCase ? strToLower( $sInput ) : $sInput;
 	}
-}
+}se
+		 *  @returns string   path element suggestion
+		 *  @syntax  (string) Object->suggestSanitizedPath( string input [, bool lowercase ] )
+		 */
+		public function suggestSanitizedPath( $sInput, $bLowerCase=true )
+		{
+			$aSpecialSuffix = Array( "acute", "grave", "circ", "ring", "tilde", "uml", "lig", "cedil", "slash" );
+			for ( $i = 0; $i < count( $aSpecialSuffix ); ++$i )
+				$aSpecialSuffix[ $i ] = "/&([a-zA-Z]+){$aSpecialSuffix[ $i ]};/";
+			$sInput = htmlentities( utf8_decode( $sInput ) );
+			$sInput = preg_replace( $aSpecialSuffix, "\\1", $sInput );
+			$sInput = preg_replace( "/[^a-zA-Z0-9_-]+/", "_", html_entity_decode( $sInput ) );
+			return $bLowerCase ? strToLower( $sInput ) : $sInput;
+		}
+	}

@@ -1,28 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedDBMongoException
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: DB/Mongo/Exception
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev$
- *          \___    ___\/         $Author$
- *              \   \  /          $Date$
- *               \___\/           
- */
-
-
 /**
  *  MongoDB specific Exception class
  *  @name    BreedDBMongoException
  *  @type    class
  *  @package Konsolidate
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
 class BreedDBMongoException extends Exception
 {
@@ -41,7 +24,7 @@ class BreedDBMongoException extends Exception
 	 *  @access  public
 	 */
 	public $errno;
-	
+
 	/**
 	 *  constructor
 	 *  @name    __construct

@@ -1,5 +1,12 @@
 <?php
 
+/**
+ *  MySQLi infor on a result set
+ *  @name    BreedDBMySQLiInfo
+ *  @type    class
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
+ */
 class BreedDBMySQLiInfo extends Konsolidate
 {
 	public function process( $oConnection, $bExtendInfo=false, $aAppendInfo=null )
@@ -63,7 +70,7 @@ class BreedDBMySQLiInfo extends Konsolidate
 				if ( is_object( $oResult ) && $oResult->errno <= 0 && (bool) $oResult->rows )
 					while( $oRecord = $oResult->next() )
 						$oModule->set( "Global/" . strtolower( $oRecord->Variable_name ), $oRecord->Value );
-	
+
 				$sQuery  = "SHOW SESSION STATUS";
 				$oResult = $this->call( "../query", $sQuery );
 				if ( is_object( $oResult ) && $oResult->errno <= 0 && (bool) $oResult->rows )

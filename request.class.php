@@ -1,5 +1,12 @@
 <?php
 
+/**
+ *  Unified access to request variables
+ *  @name    BreedRequest
+ *  @type    class
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
+ */
 class BreedRequest extends Konsolidate
 {
 	public function __construct($parent)
@@ -37,7 +44,7 @@ class BreedRequest extends Konsolidate
 		$key     = array_shift($arg);
 		$default = (bool) count($arg) ? array_shift($arg) : null;
 
-		$seperator = strrpos($key, $this->_objectseparator);
+		$seperator = strrpos($key, $this->_objectSeparator);
 		if ($seperator !== false && ($module = $this->getModule(substr($key, 0, $seperator))) !== false)
 		{
 			return $module->get(substr($key, $seperator + 1), $default);

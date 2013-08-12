@@ -1,5 +1,12 @@
 <?php
 
+/**
+ *  Provide HTTP statuses
+ *  @name    BreedStatus
+ *  @type    class
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
+ */
 class BreedStatus extends Konsolidate
 {
 	public function send($status, $message='', $useHTTP=true)

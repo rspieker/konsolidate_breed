@@ -1,27 +1,11 @@
 <?php
 
-/*
- *            ________ ___        
- *           /   /   /\  /\       Konsolidate
- *      ____/   /___/  \/  \      
- *     /           /\      /      http://www.konsolidate.net
- *    /___     ___/  \    /       
- *    \  /   /\   \  /    \       Class:  BreedSystemFileMIME
- *     \/___/  \___\/      \      Tier:   Breed
- *      \   \  /\   \  /\  /      Module: System/File/MIME
- *       \___\/  \___\/  \/       
- *         \          \  /        $Rev: 94 $
- *          \___    ___\/         $Author: rogier $
- *              \   \  /          $Date: 2008-10-15 11:08:59 +0200 (Wed, 15 Oct 2008) $
- *               \___\/           
- */
-
 /**
  *  MIME Detection/Guessing
  *  @name    BreedSystemFileMIME
  *  @type    class
- *  @package Konsolidate
- *  @author  Rogier Spieker <rogier@konsolidate.net>
+ *  @package Breed
+ *  @author  Rogier Spieker <rogier@konfirm.net>
  */
 class BreedSystemFileMIME extends Konsolidate
 {
@@ -37,7 +21,7 @@ class BreedSystemFileMIME extends Konsolidate
 	protected function _determineTypeByExtension( $sFile )
 	{
 		$aFilePart  = explode( ".", $sFile );
-	    $sExtension = array_pop( $aFilePart );
+		$sExtension = array_pop( $aFilePart );
 		switch( strToLower( $sExtension ) )
 		{
 			//  Common image types
