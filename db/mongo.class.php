@@ -22,13 +22,13 @@ class BreedDBMongo extends Konsolidate
 	 *  @param   string DSN URI
 	 *  @param   bool   force new link [optional, default false]
 	 *  @returns bool
-	 *  @syntax  bool SiteDBMongo->setConnection( string DSN [, bool newlink ] )
+	 *  @syntax  bool BreedDBMongo->setConnection(string DSN [, bool newlink])
 	 */
-	public function setConnection( $sURI )
+	public function setConnection($uri)
 	{
-		assert( is_string( $sURI ) );
+		assert(is_string($uri));
 
-		$this->_URI  = parse_url( $sURI );
+		$this->_URI  = parse_url($uri);
 		$this->_conn = false;
 		return true;
 	}
@@ -39,42 +39,43 @@ class BreedDBMongo extends Konsolidate
 	 *  @type    method
 	 *  @access  public
 	 *  @returns bool
-	 *  @syntax  bool SiteDBMongo->connect()
-	 *  @note    An explicit call to this method is not required, since the query method will create the connection if it isn't connected
+	 *  @syntax  bool BreedDBMongo->connect()
+	 *  @note    An explicit call to this method is not required, since the query methods will create the connection if it isn't connected
 	 */
 	public function connect()
 	{
-		if ( !$this->isConnected() )
+		if (!$this->isConnected())
 		{
-			if ( !class_exists( "Mongo" ) )
+			if (!class_exists('Mongo'))
 			{
 				//  Perhaps fallback onto REST?
-				$this->exception( "the PHP extention for Mongo doesn't seem to exist" );
+				$this->exception('the PHP extention for Mongo doesn\'t seem to exist');
 			}
 
-			unset( $this->_URI[ "scheme" ] );
-			if ( !isset( $this->_URI[ "host" ] ) || $this->_URI[ "host" ] == "localhost" )
+			unset($this->_URI['scheme']);
+			if (!isset($this->_URI['host']) || $this->_URI['host'] == 'localhost')
 				$this->_mongo = new Mongo();
 			else
 				$this->_mongo = new Mongo(
-					sprintf( "mongodb://%s%s@%s%s",
-						isset( $this->_URI[ "user" ] ) ? $this->_URI[ "user" ] : "",
-						isset( $this->_URI[ "pass" ] ) ? ":{$this->_URI[ "pass" ]}" : "",
-						isset( $this->_URI[ "host" ] ) ? $this->_URI[ "host" ] : "",
-						isset( $this->_URI[ "port" ] ) ? ":{$this->_URI[ "port" ]}" : ""
+					sprintf('mongodb://%s%s%s%s%s',
+						isset($this->_URI['user']) ? $this->_URI['user'] : '',
+						isset($this->_URI['pass']) ? ':' . $this->_URI['pass'] : '',
+						isset($this->_URI['user']) || isset($this->_URI["pass"]) ? '@' : '',
+						isset($this->_URI['host']) ? $this->_URI['host'] : '',
+						isset($this->_URI['port']) ? ':' . $this->_URI['port'] : ''
 					)
 				);
 
-			if ( !is_object( $this->_mongo ) || !( $this->_mongo instanceof Mongo ) )
-				$this->exception( "Could not connect to Mongo database" );
+			if (!is_object($this->_mongo) || !($this->_mongo instanceof Mongo))
+				$this->exception('Could not connect to Mongo database');
 
-			if ( isset( $this->_URI[ "path" ] ) && !empty( $this->_URI[ "path" ] ) )
-				$this->_conn = $this->database( trim( $this->_URI[ "path" ], "/" ) );
+			if (isset($this->_URI['path']) && !empty($this->_URI['path']))
+				$this->_conn = $this->database(trim($this->_URI['path'], '/'));
 
-			if ( $this->_conn === false || !$this->_mongo->connected )
+			if ($this->_conn === false || !$this->_mongo->connected)
 			{
-				$this->import( "exception.class.php" );
-				$this->error = new BreedMongoException( $this->_conn );
+				$this->import('exception.class.php');
+				$this->error = new BreedMongoException($this->_conn);
 				$this->_conn = null;
 				return false;
 			}
@@ -82,13 +83,13 @@ class BreedDBMongo extends Konsolidate
 		return true;
 	}
 
-	public function database( $sDatabase )
+	public function database($name)
 	{
-		if ( !empty( $sDatabase ) )
+		if (!empty($name))
 		{
-			$oDatabase = $this->_mongo->{$sDatabase};
-			if ( is_object( $oDatabase ) && $oDatabase instanceof MongoDB )
-				return $oDatabase;
+			$db = $this->_mongo->{$name};
+			if ($db instanceof MongoDB)
+				return $db;
 		}
 		return false;
 	}
@@ -99,74 +100,80 @@ class BreedDBMongo extends Konsolidate
 	 *  @type    method
 	 *  @access  public
 	 *  @returns bool
-	 *  @syntax  bool SiteDBMongo->isConnected()
+	 *  @syntax  bool BreedDBMongo->isConnected()
 	 */
 	public function isConnected()
 	{
 		return $this->_conn instanceof MongoDB;
 	}
 
-	public function collection( $sCollection )
+	public function collection($name)
 	{
-		if ( $this->connect() )
-			return $this->_conn->{$sCollection} instanceof MongoCollection ? $this->_conn->{$sCollection} : false;
+		if ($this->connect())
+			return $this->_conn->{$name} instanceof MongoCollection ? $this->_conn->{$name} : false;
 		return false;
 	}
 
-	public function find( $mCollection, $mQuery, $aField=Array() )
+	public function find($collection, $search=Array(), $field=Array())
 	{
-		if ( is_string( $mCollection ) )
-			$mCollection = $this->collection( $mCollection );
+		if (is_string($collection))
+			$collection = $this->collection($collection);
 
-		if ( !is_array( $mQuery ) )
-			$mQuery = Array( "\$id"=>new MongoID( $mQuery ) );
-
-		if ( $mCollection instanceof MongoCollection )
-			return $mCollection->find( $mQuery, $aField );
-
-		return false;
-	}
-
-	public function findOne( $mCollection, $mQuery, $aField=Array() )
-	{
-		if ( is_string( $mCollection ) )
-			$mCollection = $this->collection( $mCollection );
-
-		if ( $mCollection instanceof MongoCollection )
-			return $mCollection->findOne( $mQuery, $aField );
+		if ($collection instanceof MongoCollection)
+		{
+			$cursor = $this->instance('Cursor', $collection);
+			return $cursor->find($search, $field);
+		}
 
 		return false;
 	}
 
-	public function insert( $mCollection, $mData )
+	public function findOne($collection, $search=Array(), $field=Array())
 	{
-		if ( is_string( $mCollection ) )
-			$mCollection = $this->collection( $mCollection );
+		if (is_string($collection))
+			$collection = $this->collection($collection);
 
-		if ( $mCollection instanceof MongoCollection && $mCollection->insert( $mData ) )
-			return ( $this->_insertID = ( is_array( $mData ) ? $mData[ "_id" ] : $mData->_id ) );
+		if ($collection instanceof MongoCollection)
+		{
+			$cursor = $this->instance('Cursor', $collection);
+			return $cursor->findOne($search, $field);
+		}
 
 		return false;
 	}
 
-	public function update( $mCollection, $mCondition, $mData )
+	public function insert($collection, $record)
 	{
-		if ( is_string( $mCollection ) )
-			$mCollection = $this->collection( $mCollection );
+		if (is_string($collection))
+			$collection = $this->collection($collection);
 
-		if ( $mCollection instanceof MongoCollection )
-			return $mCollection->update( $mCondition, $mData );
+		if ($collection instanceof MongoCollection && $collection->insert($record))
+		{
+			$this->_insertID = is_array($record) ? $record['_id'] : $record->_id;
+			return $record;
+		}
 
 		return false;
 	}
 
-	public function drop( $mCollection )
+	public function update($collection, $condition, $data, $option=null)
 	{
-		if ( is_string( $mCollection ) )
-			$mCollection = $this->collection( $mCollection );
+		if (is_string($collection))
+			$collection = $this->collection($collection);
 
-		if ( $mCollection instanceof MongoCollection )
-			return $mCollection->drop();
+		if ($collection instanceof MongoCollection)
+			return $collection->update($condition, $data, $option);
+
+		return false;
+	}
+
+	public function drop($collection)
+	{
+		if (is_string($collection))
+			$collection = $this->collection($collection);
+
+		if ($collection instanceof MongoCollection)
+			return $collection->drop();
 
 		return false;
 	}
@@ -177,11 +184,11 @@ class BreedDBMongo extends Konsolidate
 	 *  @type    method
 	 *  @access  public
 	 *  @returns int id
-	 *  @syntax  int BreedDBMongoQuery->lastInsertID()
+	 *  @syntax  int BreedDBMongo->lastInsertID()
 	 */
 	public function lastInsertID()
 	{
-		return false;
+		return $this->_insertID;
 	}
 
 	/**
@@ -200,26 +207,26 @@ class BreedDBMongo extends Konsolidate
 	}
 
 
-	public function represent( $mModule )
+	public function represent($module)
 	{
-		if ( is_string( $mModule ) )
-			$mModule = $this->get( $mModule );
-//			if ( ( !is_object( $mModule ) || !( $mModule instanceof Iterator ) ) && !is_array( $mModule ) )
-//				$this->exception( "Unexpected data type to represent (expecting an Iterator implementation)" );
+		if (is_string($module))
+			$module = $this->get($module);
+//			if ((!is_object($module) || !($module instanceof Iterator)) && !is_array($module))
+//				$this->exception("Unexpected data type to represent (expecting an Iterator implementation)");
 
-		$oReturn = new stdClass();
-		foreach( $mModule as $sKey=>$mValue )
-			if ( preg_match( "/^[a-zA-Z]+/", $sKey ) )
-				$oReturn->{$sKey} = $mValue;
+		$return = new stdClass();
+		foreach($module as $key=>$value)
+			if (preg_match("/^[a-zA-Z]+/", $key))
+				$return->{$key} = $value;
 
-		if ( $mModule instanceof Konsolidate )
+		if ($module instanceof Konsolidate)
 		{
-			$aChild = $mModule->get( "_module" );
-			if ( is_array( $aChild ) && (bool) count( $aChild ) )
-				foreach( $aChild as $sKey=>$mValue )
-					$oReturn->{$mValue->getModulePath( true )} = $this->represent( $mValue );
+			$child = $module->get('_module');
+			if (is_array($child) && (bool) count($child))
+				foreach($child as $key=>$value)
+					$return->{$value->getModulePath(true)} = $this->represent($value);
 		}
 
-		return $oReturn;
+		return $return;
 	}
 }

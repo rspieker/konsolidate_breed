@@ -9,35 +9,21 @@
  */
 class BreedRequest extends Konsolidate
 {
-	public function __construct($parent)
+	public function __construct(Konsolidate $parent)
 	{
 		parent::__construct($parent);
 		$this->_collect();
 	}
 
-	protected function _collect()
-	{
-		$method = $_SERVER['REQUEST_METHOD'];
-		switch ($method)
-		{
-			case 'POST':
-			case 'PUT':
-			case 'DELETE':
-				$this->{$method} = parent::instance('Type', $method);
-				//  no break, all of these requests may also have GET variables
-
-			case 'GET':
-				$this->GET = parent::instance('Type', 'GET');
-				break;
-
-			default:
-				$this->call('/Log/message', 'Request-type ' . $method . ' not supported', 3);
-				break;
-		}
-
-		$GLOBALS['_REQUEST'] = $this;
-	}
-
+	/**
+	 *  get a property value from a module using a path (including the GET/POST/PUT/etc type modules)
+	 *  @name    get
+	 *  @type    method
+	 *  @access  public
+	 *  @param   string   path to the property to get
+	 *  @param   mixed    default return value (optional, default null)
+	 *  @return  mixed
+	 */
 	public function get()
 	{
 		$arg     = func_get_args();
@@ -61,6 +47,15 @@ class BreedRequest extends Konsolidate
 		return is_null($return) ? $default : $return; // can (and will be by default!) still be null
 	}
 
+	/**
+	 *  Create a sub module of the current one, adding the supported request types as transparent instances of type
+	 *  @name    instance
+	 *  @type    method
+	 *  @access  public
+	 *  @param   string   modulename
+	 *  @param   mixed    param N
+	 *  @return  object
+	 */
 	public function instance($module)
 	{
 		switch ($module)
@@ -69,6 +64,7 @@ class BreedRequest extends Konsolidate
 			case 'POST':
 			case 'PUT':
 			case 'DELETE':
+			case 'PURGE':
 				if (!array_key_exists($module, $this->_property))
 					$this->_property[$module] = parent::instance('Type', $module);
 				return $this->_property[$module];
@@ -79,7 +75,7 @@ class BreedRequest extends Konsolidate
 	}
 
 	/**
-	 *  is the request method a PUT
+	 *  is the request method PUT
 	 *  @name    isPut
 	 *  @type    method
 	 *  @access  public
@@ -92,7 +88,7 @@ class BreedRequest extends Konsolidate
 	}
 
 	/**
-	 *  is the request method a DELETE
+	 *  is the request method DELETE
 	 *  @name    isDelete
 	 *  @type    method
 	 *  @access  public
@@ -104,6 +100,50 @@ class BreedRequest extends Konsolidate
 		return isset( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'DELETE';
 	}
 
+	/**
+	 *  is the request method PURGE
+	 *  @name    isPurge
+	 *  @type    method
+	 *  @access  public
+	 *  @returns bool
+	 *  @syntax  bool SiteRequest->isPurge()
+	 */
+	public function isPurge()
+	{
+		return isset( $_SERVER['REQUEST_METHOD'] ) && $_SERVER['REQUEST_METHOD'] === 'PURGE';
+	}
+
+
+	/**
+	 *  Create <Tier>RequestType instances for all appropiate request type and overwrite the superglobal $_REQUEST
+	 *  @name    _collect
+	 *  @type    method
+	 *  @access  protected
+	 *  @return  void
+	 */
+	protected function _collect()
+	{
+		$method = $_SERVER['REQUEST_METHOD'];
+		switch ($method)
+		{
+			case 'POST':
+			case 'PUT':
+			case 'DELETE':
+				$this->{$method} = parent::instance('Type', $method);
+				//  no break, all of these requests may also have GET variables
+
+			case 'GET':
+			case 'PURGE':
+				$this->GET = parent::instance('Type', 'GET');
+				break;
+
+			default:
+				$this->call('/Log/message', 'Request-type ' . $method . ' not supported', 3);
+				break;
+		}
+
+		$GLOBALS['_REQUEST'] = $this;
+	}
 
 
 	/*  ArrayAccess implementation */
