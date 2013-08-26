@@ -118,7 +118,7 @@ class BreedRequestType extends Konsolidate implements ArrayAccess
 			{
 				case 'string':
 					//  see if the given GET/POST variable can be found in the buffer
-					if (preg_match_all('/(' . str_replace('_', '(_|\[)', preg_quote($key)) . '=[^&]*)/', $buffer, $match))
+					if (preg_match_all('/(' . preg_quote($key) . '=[^&]*)/', $buffer, $match))
 					{
 						//  prepare the key for easier matching (we need to process the match we put into
 						//  parse_str the same way)
